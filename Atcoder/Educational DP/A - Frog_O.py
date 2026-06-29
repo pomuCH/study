@@ -17,6 +17,39 @@ dp[4] = dp[3] + dp[2] = 3 + 2 = 5
 dp[5] = dp[4] + dp[3] = 5 + 3 = 8
 dp[6] = dp[5] + dp[4] = 8 + 5 = 13
 
+dp [i] = dp[i - 1] + max(h)?
 '''
+n = int(input())
+h = list(map(int,input().split()))
 
+H1 = abs(h[0] - h[1])
+H2 = abs(h[0] - h[2])
 
+dp = [0] * n
+
+if H1 > H2:
+  dp[0] = H2
+  i = 2
+elif H1 < H2:
+  dp[0] = H1
+  i = 1
+elif H1 == H2:
+  dp[0] = 0
+  i = 2
+
+j = 1
+while True:
+  h1 = abs(h[i] - h[i + 1])
+  h2 = abs(h[i] - h[i + 2])
+  if h1  > h2:
+    dp[j] = dp[j - 1] + h2
+    i += 2
+  elif h1 < h2:
+    dp[j] = dp[j - 1] + h1
+    i += 1
+  elif h1 == h2:
+    i += 2
+  j += 1
+  if i >(n -2):
+    break
+print(dp[-1])
